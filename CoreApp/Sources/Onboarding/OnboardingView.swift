@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class OnboardingView: UIView {
+public class OnboardingView: UIView {
     private var steps: [String] = []
     private var currentStep = 0
     
