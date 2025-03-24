@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public class OnboardingView: UIView {
+public class OnboardingViewController: UIViewController {
     private var steps: [String] = []
     private var currentStep = 0
     
@@ -39,57 +39,49 @@ public class OnboardingView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    public override init(frame: CGRect) {
-        super.init(frame: .zero)
-        
+     
+     public init() {
+         super.init(nibName: nil, bundle: nil)
+     }
+     
+     required init?(coder: NSCoder) {
+         fatalError("init(coder:) has not been implemented")
+     }
+     
+    public override func viewDidLoad() {
         setupUI()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func setupUI() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(backgroundView)
-        addSubview(messageLabel)
-        addSubview(nextButton)
+        view.addSubview(backgroundView)
+        view.addSubview(messageLabel)
+        view.addSubview(nextButton)
         
         setupConstraints()
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Metrics.medium),
-            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Metrics.medium),
+            messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metrics.medium),
+            messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Metrics.medium),
             
             nextButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: Metrics.medium),
-            nextButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     public func presentOnboarding(on view: UIView, with steps: [String]) {
         self.steps = steps
         self.currentStep = 0
-        
-        view.addSubview(self)
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: view.topAnchor),
-            leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
     }
     
     private func updateStep() {
@@ -97,7 +89,7 @@ public class OnboardingView: UIView {
     }
     
     private func dismiss() {
-        removeFromSuperview()
+        //removeFromSuperview()
     }
     
     @objc
